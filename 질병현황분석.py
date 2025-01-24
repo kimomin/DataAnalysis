@@ -25,15 +25,13 @@ def dataopen():
    return df, sido
 
 def datapreprocessing(df,sido):
-    # 시도지역코드의 지역명 표시
-    data_merge = pd.merge(df,sido,how='left',on='시도지역코드')
-    data_merge['년/월'] = data_merge['날짜'].str[:7]
-    dfdata = data_merge[data_merge['지역명'] != '전국']
-    dfdata.dropna(axis=0,how='any',inplace=True)
-    yearmonthdf = dfdata.groupby(['년/월','구분'],as_index=False)[['발생건수(건)']].mean()
-
-    return yearmonthdf
- 
+   # 시도지역코드의 지역명 표시
+   data_merge = pd.merge(df,sido,how='left',on='시도지역코드')
+   data_merge['년/월'] = data_merge['날짜'].str[:7]
+   dfdata = data_merge[data_merge['지역명'] != '전국']
+   dfdata.dropna(axis=0,how='any',inplace=True)
+   yearmonthdf = dfdata.groupby(['년/월','구분'],as_index=False)[['발생건수(건)']].mean()
+   return yearmonthdf
 
 # 조회할 수 있는 년/월 ['2023-10', '2023-11', '2023-12', '2024-01', '2024-02']
 
